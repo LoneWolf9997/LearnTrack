@@ -6,7 +6,7 @@ import learntrack.exception.EntityNotFoundException;
 import java.util.ArrayList;
 
 public class CourseService {
-    private ArrayList<Course> courses = new ArrayList<>();
+    private final ArrayList<Course> courses = new ArrayList<>();
 
     public void addCourse(Course course) {
         courses.add(course);

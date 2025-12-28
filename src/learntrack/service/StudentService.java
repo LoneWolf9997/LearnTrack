@@ -6,7 +6,7 @@ import learntrack.entity.Student;
 import java.util.ArrayList;
 
 public class StudentService {
-    private ArrayList<Student> students = new ArrayList<>();
+    private final ArrayList<Student> students = new ArrayList<>();
 
     public void updateStudentStatus(int id, boolean active) throws EntityNotFoundException {
         Student student = findById(id);
