@@ -1,6 +1,6 @@
 # LearnTrack 📘  
 ### Student & Course Management System (Core Java)
-
+ 
 LearnTrack is a **console-based Student and Course Management System** built using **Core Java**.  
 The project is designed to strengthen **Java fundamentals**, focusing on OOP concepts, collections, exception handling, and clean code practices.
 
