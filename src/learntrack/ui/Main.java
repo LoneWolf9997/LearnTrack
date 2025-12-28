@@ -123,12 +123,10 @@ public class Main {
                     case 7:
                         System.out.print("Enter Student ID: ");
                         int stId = Integer.parseInt(sc.nextLine());
-
                         Student st = studentService.findById(stId);
-
                         System.out.println("Current Status: " + (st.isActive() ? "ACTIVE" : "INACTIVE"));
                         System.out.println("1. Activate Student");
-                        System.out.println("2. Deactivate Student");
+                        System.out.println("2. Student Deactivated");
                         System.out.print("Choose option: ");
 
                         int statusChoice = Integer.parseInt(sc.nextLine());
