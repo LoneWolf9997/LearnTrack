@@ -3,18 +3,14 @@ import learntrack.entity.*;
 import learntrack.service.*;
 import learntrack.util.IdGenerator;
 import learntrack.exception.EntityNotFoundException;
-
 import java.util.Scanner;
-
+import java.util.List;
 public class Main {
-
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-
         StudentService studentService = new StudentService();
         CourseService courseService = new CourseService();
         EnrollmentService enrollmentService = new EnrollmentService();
-
         while (true) {
             System.out.println("\n--- LearnTrack Menu ---");
             System.out.println("1. Add Student");
@@ -25,11 +21,12 @@ public class Main {
             System.out.println("6. View Student Enrollments");
             System.out.println("7. Update Student Status");
             System.out.println("8. Exit");
-
-
             try {
-                int choice = Integer.parseInt(sc.nextLine());
-
+                // ParseInt is safer than nextInt to avoid newline consumption issues
+                String input = sc.nextLine();
+                // Handle empty input simply by restarting the loop
+                if(input.isEmpty()) continue;
+                int choice = Integer.parseInt(input);
                 switch (choice) {
                     case 1:
                         System.out.print("First Name: ");
@@ -105,18 +102,18 @@ public class Main {
                         System.out.println("\n--- Student Details ---");
                         System.out.println(student);
 
-                        // Fetch enrollments
-                        var enrollments = enrollmentService.getEnrollmentsByStudent(sid);
+                        List<Enrollment> enrollments = enrollmentService.getEnrollmentsByStudent(sid);
 
                         System.out.println("\n--- Assigned Courses ---");
                         if (enrollments.isEmpty()) {
                             System.out.println("No courses assigned to this student.");
                         } else {
                             for (Enrollment e : enrollments) {
-                                c = courseService.findById(e.getCourseId());
+                                Course course = courseService.findById(e.getCourseId());
+
                                 System.out.println(
                                         "Enrollment ID: " + e.getId() +
-                                                " | Course: " + c.getCourseName() +
+                                                " | Course: " + course.getCourseName() +
                                                 " | Status: " + e.getStatus()
                                 );
                             }
@@ -145,9 +142,11 @@ public class Main {
                         }
                         break;
 
-                    case 8:System.out.println("Exiting LearnTrack");
+                    case 8:
+                        System.out.println("Exiting LearnTrack...");
                         return;
-                    default: System.out.println("Invalid option!");
+                    default:
+                        System.out.println("Invalid option!");
                 }
             } catch (NumberFormatException e) {
                 System.out.println("Please enter valid numeric input.");
